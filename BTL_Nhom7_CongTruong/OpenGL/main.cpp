@@ -1,37 +1,27 @@
 ﻿/*Chương trình chiếu sáng Blinn-Phong (Phong sua doi) cho hình lập phương đơn vị, điều khiển quay bằng phím x, y, z, X, Y, Z.*/
-
 #include "Angel.h"  /* Angel.h là file tự phát triển (tác giả Prof. Angel), có chứa cả khai báo includes glew và freeglut*/
 #include <cmath>
-
 // remember to prototype
 void generateGeometry(void);
 void initGPUBuffers(void);
 void shaderSetup(void);
 void display(void);
 void keyboard(unsigned char key, int x, int y);
-
 typedef vec4 point4;
 typedef vec4 color4;
 using namespace std;
-
 // Số các đỉnh của các tam giác
 const int NumPoints = 36;
-
 point4 points[NumPoints]; /* Danh sách các đỉnh của các tam giác cần vẽ*/
 color4 colors[NumPoints]; /* Danh sách các màu tương ứng cho các đỉnh trên*/
 vec3 normals[NumPoints]; /*Danh sách các vector pháp tuyến ứng với mỗi đỉnh*/
-
 point4 vertices[8]; /* Danh sách 8 đỉnh của hình lập phương*/
 color4 vertex_colors[8]; /*Danh sách các màu tương ứng cho 8 đỉnh hình lập phương*/
-
 GLuint program;
 mat4 xoayHinh, xoayCuaPhai, xoayCuaTrai, nghiengDai, nghiengRong, dichuyenngang;
 GLfloat q = 0, e = 0, q1 = 0, q2 = 0, qb = 0, k = 0.0f;
-
-
 GLfloat theta[3] = { 0, 0, 0 };
 GLfloat dr = 5;
-
 mat4 model;
 GLuint model_loc;
 mat4 projection;
@@ -796,7 +786,7 @@ void display(void)
 	xoayXeLu = RotateX(x_x) * RotateY(x_y) * RotateZ(x_z);
 	Xe();
 	cancau();
-	dichXuong = Translate(0.0f, -0.1f, 0.0f);
+	dichXuong = Translate(0.0f, -0.15f, 0.0f);
 	buil_xuc(); // Máy xúc của Ngọ
 	// Xe của Điều
 	//xe tai
@@ -819,7 +809,7 @@ void display(void)
 	glUniformMatrix4fv(view_loc, 1, GL_TRUE, View);
 	mat4 Projection = Frustum(l, r, bottom, top, zNear, zFar);
 	glUniformMatrix4fv(projection_loc, 1, GL_TRUE, Projection);
-	const vec3 viewer_pos(0.0, 4.5, 3.0);  
+	const vec3 viewer_pos(0.0, 4.5, 3.0);
 	glutSwapBuffers();
 }
 
